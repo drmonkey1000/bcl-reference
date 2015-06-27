@@ -1,2 +1,18 @@
-# bcl-reference
-The BCL reference implementation. https://vikomprenas.com/public/bcl/index.htm
+# BCL-reference
+This is the reference implementation of the BCL programming language. The implementation is currently incomplete. The specification, version 1.0, is available at http://vikomprenas.com/public/bcl/spec-1_0.md .
+
+## Command line syntax
+Coming soon!
+
+## Library integration
+BCL-reference will be able to integrate into any other software written in Haxe.
+Coming soon!
+
+## Implemented features
+No code at all yet!
+
+## Compiling from source
+This project requires Haxe 3.2.0 and no other libraries. The project is kept in FlashDevelop format, so you may need that, or you can try to work it out yourself.
+
+## Contributing
+At this time, BCL-reference is closed to contributions.
