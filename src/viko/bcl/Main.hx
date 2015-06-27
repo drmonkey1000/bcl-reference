@@ -11,7 +11,8 @@ class Main
 	
 	static var args:Array<String>;
 	static var command:String;
-	static var params:Array<String>;
+	static var params:Map<String, String>;
+	static var flags:Array<String>;
 	
 	#if debug
 	static inline var headerString = "BCL-reference 0.1debug - https://www.vikomprenas.com/public/bcl/index.htm";
@@ -38,7 +39,6 @@ class Main
 			{
 				// Commands start with :. This means that two lines `bcl -hi :one` and `bcl -zone :two` can be combined as `bcl -hi :one -zone :two`.
 				// Note to self: this paradigm could be generalized.
-				Lib.println("");
 				command = arg;
 				
 				switch (command) 
@@ -49,14 +49,30 @@ class Main
 						Lib.println('   :help     View this help information.');
 						Lib.println('   :info     List some information about the language.');
 						Lib.println('   :copy     Display copyright information.');
+						Lib.println('   :bf       Interpret Repaired Brainf***.');
+						Lib.println('             Takes parameter: file (the file ro read from, don\'t give for stdin)');
 					case ":info":
 						Lib.println('This is the reference implementation of BCL, the Brainf*** Computing Language.');
 					case ":copy":
 						Lib.println('This program is licensed under the MIT license. For more details, see:');
 						Lib.println('   https://raw.githubusercontent.com/ViKomprenas/bcl-reference/develop/LICENSE');
+					case ":bf":
+						// TODO: Implement parameter file
+						var bcl = new Bcl();
+						bcl.rbf(Sys.stdin());
 					default:
 						Lib.println('Syntax error. Use command ":help" for help or ":info" for information.');
 				}
+			}
+			else if (arg.indexOf('=') != -1)
+			{
+				// Parameters don't start with : and contain = signs.
+				params.set(arg.split('=')[0], arg.split('=')[1]);
+			}
+			else
+			{
+				// Flags don't start with : and don't contain = signs.
+				flags.push(arg);
 			}
 		}
 	}
