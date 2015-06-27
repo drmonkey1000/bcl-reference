@@ -3,8 +3,8 @@ package viko.bcl;
 import cpp.Lib;
 
 /**
- * ...
- * @author 
+ * The terminal client to viko.bcl.Bcl.
+ * @author Viko <viko@vikomprenas.com>
  */
 
 class Main 
