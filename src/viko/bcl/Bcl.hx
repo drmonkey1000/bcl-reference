@@ -32,9 +32,9 @@ class Bcl
 	 * Interpret Reparied Brainf***. Call init() to reset the environment.
 	 * @param	in	A stream to read the commands from.
 	 */
-	public function rbf(in:Input) 
+	public function rbf(code:String):Void
 	{
-		
+		trace(code);
 	}
 	
 }

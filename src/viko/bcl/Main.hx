@@ -49,19 +49,24 @@ class Main
 			}
 		}
 		
-		trace('$params');
 		switch (params.get("_0_")) {
 			case "help":
 				Lib.println(headerString);
 				Lib.println('bcl help');
 				Lib.println('    Prints this help message.');
 				Lib.println('bcl info');
-				Lib.println('    Prins some basic information.');
+				Lib.println('    Prints some basic information.');
+				Lib.println('bcl i-rbf');
+				Lib.println('    Interprets Restricted Brainf*** from the command line.');
+				Lib.println('    Expects entered code to end with a ~.');
 			case "info":
 				Lib.println(headerString);
 				Lib.println('Copyright (C) 2015 Vi Komprenas <viko@vikomprenas.com>');
 				Lib.println('Licensed under the MIT license. For details, see:');
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
+			case "i-rbf":
+				var bcl = new Bcl();
+				bcl.rbf(Sys.stdin().readUntil('~'.charCodeAt(0)));
 			default:
 				Lib.println('Syntax error (bad command). Use command "help" for help or "info" for information.');
 		}
