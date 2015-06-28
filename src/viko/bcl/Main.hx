@@ -12,7 +12,6 @@ class Main
 	static var args:Array<String>;
 	static var params:Map<String, String>;
 	static var flags:Array<String>;
-	static var command:String;
 	
 	#if debug
 	static inline var headerString = "BCL-reference 0.1debug - https://www.vikomprenas.com/public/bcl/index.htm";
@@ -23,7 +22,6 @@ class Main
 	static function main() 
 	{
 		args = Sys.args();
-		command = "";
 		flags = new Array<String>();
 		params = new Map<String, String>();
 		
@@ -35,8 +33,9 @@ class Main
 		
 		// This whole thing is quite complicated and doesn't exactly follow the standard format
 		// Eventually I will write a proper library for implementing that in this format and fix it there
-		for (arg in args)
+		for (argid in 0...args.length)
 		{
+			var arg = args[argid];
 			if (arg.charAt(0) == '-') {
 				if (arg.indexOf('=') != -1) {
 					params.set(arg.split('=')[0].substr(1), arg.split('=').slice(1).join('=')); // substr 1 to avoid the -
@@ -46,19 +45,12 @@ class Main
 					flags.push(arg);
 				}
 			} else {
-				if (command != "")
-				{
-					Lib.println('Syntax error (more than one command). Use command "help" for help or "info" for information.');
-					return;
-				}
-				else
-				{
-					command = arg;
-				}
+				params.set('_${argid}_', arg);
 			}
 		}
 		
-		switch (command) {
+		trace('$params');
+		switch (params.get("_0_")) {
 			case "help":
 				Lib.println(headerString);
 				Lib.println('bcl help');
