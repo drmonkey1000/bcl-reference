@@ -26,7 +26,6 @@ class Main
 		command = "";
 		flags = new Array<String>();
 		params = new Map<String, String>();
-		Lib.println(headerString);
 		
 		if (args.length == 0)
 		{
@@ -59,7 +58,21 @@ class Main
 			}
 		}
 		
-		// TODO: add code
+		switch (command) {
+			case "help":
+				Lib.println(headerString);
+				Lib.println('bcl help');
+				Lib.println('    Prints this help message.');
+				Lib.println('bcl info');
+				Lib.println('    Prins some basic information.');
+			case "info":
+				Lib.println(headerString);
+				Lib.println('Copyright (C) 2015 Vi Komprenas <viko@vikomprenas.com>');
+				Lib.println('Licensed under the MIT license. For details, see:');
+				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
+			default:
+				Lib.println('Syntax error. Use command "help" for help or "info" for information.');
+		}
 	}
 	
 }
