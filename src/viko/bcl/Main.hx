@@ -29,7 +29,7 @@ class Main
 		
 		if (args.length == 0)
 		{
-			Lib.println('Syntax error. Use command "help" for help or "info" for information.');
+			Lib.println('Syntax error (no args). Use command "help" for help or "info" for information.');
 			return;
 		}
 		
@@ -48,7 +48,7 @@ class Main
 			} else {
 				if (command != "")
 				{
-					Lib.println('Syntax error. Use command "help" for help or "info" for information.');
+					Lib.println('Syntax error (more than one command). Use command "help" for help or "info" for information.');
 					return;
 				}
 				else
@@ -71,7 +71,7 @@ class Main
 				Lib.println('Licensed under the MIT license. For details, see:');
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
 			default:
-				Lib.println('Syntax error. Use command "help" for help or "info" for information.');
+				Lib.println('Syntax error (bad command). Use command "help" for help or "info" for information.');
 		}
 	}
 	
