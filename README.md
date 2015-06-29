@@ -2,10 +2,10 @@
 This is the reference implementation of the BCL programming language. The implementation is currently incomplete. The specification, version 1.0, is available at http://vikomprenas.com/public/bcl/spec-1_0.md .
 
 ## Command line syntax
-BCL command-line syntax is fairly simple. Set flags and parameters and then signal a command.
-For example, these arguments set flag `f` and parameter `example` (to `1`) and then runs `about`:
 ```
-f example=1 :about
+bcl help
+bcl info
+bcl rbf # Reads from standard input until ~
 ```
 
 To get a list of supported commands and syntax, use the command `help`.
