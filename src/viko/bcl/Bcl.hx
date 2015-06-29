@@ -18,12 +18,20 @@ class Bcl
 	public var loops:Array<Int>; // A stack showing what loops the code is running right now. Pointers to their [.
 	
 	public var log:BclLog;
-
+	
+	/**
+	 * Create a new BCL interpreter.
+	 * @param	logfilename	The file name of the log. Leave blank for no log file (log is still kept in memory).
+	 */
 	public function new(logfilename:String = "") 
 	{
 		init(logfilename);
 	}
 	
+	/**
+	 * Reset the environment.
+	 * @param	logfilename	The file name of the log. Leave blank for no log file (log is still kept in memory).
+	 */
 	public function init(logfilename:String = ""):Void
 	{
 		tape = new Array<Int64>();
@@ -34,8 +42,8 @@ class Bcl
 	}
 	
 	/**
-	 * Interpret Reparied Brainf***. Call init() to reset the environment.
-	 * @param	in	A stream to read the commands from.
+	 * Interpret Reparied Brainf***.
+	 * @param	code	The code to run.
 	 * @return	An error string, if any, or "" if none.
 	 */
 	public function rbf(code:String):String
