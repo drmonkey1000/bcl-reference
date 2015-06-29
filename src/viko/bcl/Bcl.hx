@@ -113,7 +113,7 @@ class Bcl
 	 * @param	nests	All the characters that can start a nesting with this character.
 	 * @return	The index in inside after the last character of this.
 	 */
-	function skipNested(inside:String, start:Int, until:String, nests:String):Int
+	public function skipNested(inside:String, start:Int, until:String, nests:String):Int
 	{
 		#if debug
 		// Log information about the skip
