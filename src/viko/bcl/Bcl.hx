@@ -70,6 +70,7 @@ class Bcl
 						try
 						{
 							i = skipNested(code, i, ']', '[');
+							log.addStr('Skipped a loop to $i');
 						}
 						catch (s:String)
 						{
@@ -80,7 +81,7 @@ class Bcl
 						loops.push(i);
 				case ']':
 					if (loops.length == 0)
-						return 'bad \']\' at $i';
+						return 'No \'[\' for the \']\' at $i';
 					else
 					{
 						if (tape[ptr] != 0)
@@ -115,12 +116,13 @@ class Bcl
 		#end
 		
 		var nestCount = 0; var c = ""; var i = -1;
-		for (i in start...inside.length)
+		for (i in start + 1...inside.length)
 		{
 			c = inside.charAt(i);
 			
 			if (c == nests)
 			{
+				trace('nested up at $i');
 				nestCount += 1;
 			}
 			else if (c == until)
@@ -133,7 +135,10 @@ class Bcl
 					return i + 1;
 				}
 				else
+				{
+					trace('nested down at $i');
 					nestCount -= 1;
+				}
 			}
 		}
 		
