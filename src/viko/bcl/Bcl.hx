@@ -122,7 +122,6 @@ class Bcl
 			
 			if (c == nests)
 			{
-				trace('nested up at $i');
 				nestCount += 1;
 			}
 			else if (c == until)
@@ -130,13 +129,12 @@ class Bcl
 				if (nestCount == 0)
 				{
 					#if debug
-					log.addStr('-D- Got to ${start + i + 1} (${inside.charAt(start + i + 1)})');
+					log.addStr('-D- Got to ${i + 1} (${inside.charAt(i + 1)})');
 					#end
-					return start + i + 1;
+					return i;
 				}
 				else
 				{
-					trace('nested down at $i');
 					nestCount -= 1;
 				}
 			}
