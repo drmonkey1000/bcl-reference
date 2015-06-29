@@ -68,7 +68,9 @@ class Main
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
 			case "i-rbf":
 				var bcl = new Bcl("bcl.log");
-				Sys.stderr().writeString(bcl.rbf(Sys.stdin().readUntil('~'.charCodeAt(0))));
+				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
+				Sys.stdin().readLine(); // to skip the newline
+				Sys.stderr().writeString(bcl.rbf(code));
 			default:
 				Lib.println('Syntax error (bad command). Use command "help" for help or "info" for information.');
 		}
