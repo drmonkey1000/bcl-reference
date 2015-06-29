@@ -186,7 +186,15 @@ class Bcl
 					log.addStr('Hardcoded $a');
 					tape[ptr] = code.charCodeAt(i);
 				case '#':
-					i = skipNested(code, i, '#', '#');
+					try
+						i = skipNested(code, i, '\n', '')
+					catch (s:Dynamic)
+					{
+						if (s == 'No matching \n after $i (#)')
+							break; // Comment at the end of the program
+						else
+							return s;
+					}
 				case 'X':
 					Sys.exit(cast tape[ptr].mod(256));
 				default: // nothing
@@ -204,7 +212,7 @@ class Bcl
 	 * @param	inside	The string to use.
 	 * @param	start	The index in inside to start at.
 	 * @param	until	The character to stop skipping at.
-	 * @param	nests	All the characters that can start a nesting with this character.
+	 * @param	nests	The character that can start a nesting with this character. If "", does not account for nests.
 	 * @return	The index in inside after the last character of this.
 	 */
 	public function skipNested(inside:String, start:Int, until:String, nests:String):Int
