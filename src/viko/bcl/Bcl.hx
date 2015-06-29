@@ -132,7 +132,7 @@ class Bcl
 					#if debug
 					log.addStr('-D- Got to ${start + i + 1} (${inside.charAt(start + i + 1)})');
 					#end
-					return i + 1;
+					return start + i + 1;
 				}
 				else
 				{
