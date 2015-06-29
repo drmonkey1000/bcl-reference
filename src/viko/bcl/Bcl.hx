@@ -67,27 +67,26 @@ class Bcl
 				case '[':
 					if (tape[ptr] == 0)
 					{
-						i = skipNested(code, i, ']', ['[']);
+						try
+						{
+							i = skipNested(code, i, ']', '[');
+						}
+						catch (s:String)
+						{
+							return s;
+						}
 					}
 					else
-					{
 						loops.push(i);
-					}
 				case ']':
 					if (loops.length == 0)
-					{
 						return 'bad \']\' at $i';
-					}
 					else
 					{
 						if (tape[ptr] != 0)
-						{
 							i = loops[loops.length - 1];
-						}
 						else
-						{
 							loops.pop();
-						}
 					}
 				default:
 					i++;
@@ -108,28 +107,19 @@ class Bcl
 	 * @param	nests	All the characters that can start a nesting with this character.
 	 * @return	The index in inside after the last character of this.
 	 */
-	function skipNested(inside:String, start:Int, until:String, nests:Array<String>):Int
+	function skipNested(inside:String, start:Int, until:String, nests:String):Int
 	{
 		#if debug
 		// Log information about the skip
 		log.addStr('-D- Skipping from $start (${inside.charAt(start)}) until next $until, nesting with $nests');
 		#end
 		
-		var nestCount = 0; var c = ""; var i = -1; var thatsit = false;
+		var nestCount = 0; var c = ""; var i = -1;
 		for (i in start...inside.length)
 		{
 			c = inside.charAt(i);
 			
-			for (c2 in nests) 
-			{
-				if (c == c2)
-				{
-					thatsit = true;
-					continue;
-				}
-			}
-			
-			if (thatsit) // that is, if nests contains c
+			if (c == nests)
 			{
 				nestCount += 1;
 			}
@@ -138,9 +128,9 @@ class Bcl
 				if (nestCount == 0)
 				{
 					#if debug
-					log.addStr('-D- Got to ${start + i + 1} (${inside.charAt(start + i + 1)}) ');
+					log.addStr('-D- Got to ${start + i + 1} (${inside.charAt(start + i + 1)})');
 					#end
-					return start + i + 1;
+					return i + 1;
 				}
 				else
 					nestCount -= 1;
@@ -148,10 +138,10 @@ class Bcl
 		}
 		
 		#if debug
-		log.addStr('-D- Got to the end of the string.');
+		log.addStr('-D- Got to the end of the string, now throwing an error');
 		#end
 		
-		return i;
+		throw 'No matching $until after $start (${inside.charAt(start)})';
 	}
 	
 	function tapeCheck() 
