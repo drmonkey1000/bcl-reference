@@ -2,6 +2,7 @@ package viko.bcl;
 
 import sys.io.File;
 import sys.io.FileOutput;
+import haxe.Int64;
 
 /**
  * A mechanism to log data about the program's execution.
@@ -42,10 +43,12 @@ class BclLog
 	 * @param	index		The current index in the string.
 	 * @param	char		The character at that point.
 	 * @param	loopCount	How many loops there are.
+	 * @param	ptr			The pointer to the tape.
+	 * @param	cellValue	The value under that pointer.
 	 */
-	public function addStdFormRbf(index:Int, char:String, loopCount:Int)
+	public function addStdFormRbf(index:Int, char:String, loopCount:Int, ptr:Int, cellValue:Int64)
 	{
-		addStr('At $index ($char) with $loopCount loops');
+		addStr('At $index ($char) with $loopCount loops. Tape is at $ptr which is $cellValue (${String.fromCharCode(cast cellValue.low)}).');
 	}
 	
 }

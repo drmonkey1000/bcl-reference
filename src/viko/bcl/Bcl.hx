@@ -44,7 +44,7 @@ class Bcl
 		while (i < code.length - 1)
 		{
 			c = code.charAt(i);
-			log.addStdFormRbf(i, c, loops.length);
+			log.addStdFormRbf(i, c, loops.length, ptr, tape[ptr]);
 			
 			switch (c) {
 				case '>':
@@ -57,7 +57,7 @@ class Bcl
 				case '-':
 					tape[ptr] -= 1;
 				case '.':
-					a = String.fromCharCode(Int64.toInt(tape[ptr].mod(cast Math.pow(2, 31))));
+					a = String.fromCharCode(tape[ptr].low);
 					Lib.print(a);
 					log.addStr('Output $a');
 				case ',':
