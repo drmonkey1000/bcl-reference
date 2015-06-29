@@ -1,6 +1,8 @@
 package viko.bcl;
 
 import cpp.Lib;
+import sys.io.File;
+import viko.bcl.BclLog;
 
 /**
  * The terminal client to viko.bcl.Bcl.
@@ -65,7 +67,7 @@ class Main
 				Lib.println('Licensed under the MIT license. For details, see:');
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
 			case "i-rbf":
-				var bcl = new Bcl();
+				var bcl = new Bcl("bcl.log");
 				Sys.stderr().writeString(bcl.rbf(Sys.stdin().readUntil('~'.charCodeAt(0))));
 			default:
 				Lib.println('Syntax error (bad command). Use command "help" for help or "info" for information.');

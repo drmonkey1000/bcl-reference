@@ -16,18 +16,21 @@ class Bcl
 	public var tape:Array<Int64>;
 	public var ptr:Int;
 	public var loops:Array<Int>; // A stack showing what loops the code is running right now. Pointers to their [.
+	
+	public var log:BclLog;
 
-	public function new() 
+	public function new(logfilename:String = "") 
 	{
-		init();
+		init(logfilename);
 	}
 	
-	public function init()
+	public function init(logfilename:String = ""):Void
 	{
 		tape = new Array<Int64>();
 		tape.push(0);
 		ptr = 0;
 		loops = new Array<Int>();
+		log = new BclLog(logfilename);
 	}
 	
 	/**
@@ -37,10 +40,11 @@ class Bcl
 	 */
 	public function rbf(code:String):String
 	{
-		var c:String; var i = 0;
+		var c:String; var i = 0; var a:Dynamic;
 		while (i < code.length - 1)
 		{
 			c = code.charAt(i);
+			log.addStdFormRbf(i, c, loops.length);
 			
 			switch (c) {
 				case '>':
@@ -53,13 +57,22 @@ class Bcl
 				case '-':
 					tape[ptr] -= 1;
 				case '.':
-					Lib.print(String.fromCharCode(Int64.toInt(tape[ptr].mod(cast Math.pow(2, 31)))));
+					a = String.fromCharCode(Int64.toInt(tape[ptr].mod(cast Math.pow(2, 31))));
+					Lib.print(a);
+					log.addStr('Output $a');
 				case ',':
-					tape[ptr] = Int64.ofInt(Sys.stdin().readString(1).charCodeAt(0));
+					a = Sys.stdin().readString(1).charCodeAt(0);
+					tape[ptr] = Int64.ofInt(a);
+					log.addStr('Input ${String.fromCharCode(a)}');
 				case '[':
-					loops.push(i);
 					if (tape[ptr] == 0)
+					{
 						i = skipNested(code, i, ']', ['[']);
+					}
+					else
+					{
+						loops.push(i);
+					}
 				case ']':
 					if (loops.length == 0)
 					{
@@ -97,23 +110,46 @@ class Bcl
 	 */
 	function skipNested(inside:String, start:Int, until:String, nests:Array<String>):Int
 	{
-		var nestCount = 0; var c = ""; var i = -1;
-		for (i in 0...inside.length - start)
+		#if debug
+		// Log information about the skip
+		log.addStr('-D- Skipping from $start (${inside.charAt(start)}) until next $until, nesting with $nests');
+		#end
+		
+		var nestCount = 0; var c = ""; var i = -1; var thatsit = false;
+		for (i in start...inside.length)
 		{
-			c = inside.charAt(start + i);
+			c = inside.charAt(i);
 			
-			if (nests.filter(function(s:String) { return s == c; } ).length != 0) // that is, if nests contains c
+			for (c2 in nests) 
+			{
+				if (c == c2)
+				{
+					thatsit = true;
+					continue;
+				}
+			}
+			
+			if (thatsit) // that is, if nests contains c
 			{
 				nestCount += 1;
 			}
 			else if (c == until)
 			{
 				if (nestCount == 0)
+				{
+					#if debug
+					log.addStr('-D- Got to ${start + i + 1} (${inside.charAt(start + i + 1)}) ');
+					#end
 					return start + i + 1;
+				}
 				else
 					nestCount -= 1;
 			}
 		}
+		
+		#if debug
+		log.addStr('-D- Got to the end of the string.');
+		#end
 		
 		return i;
 	}
