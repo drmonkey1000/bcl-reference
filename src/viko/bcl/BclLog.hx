@@ -51,4 +51,17 @@ class BclLog
 		addStr('At $index ($char) with $loopCount loops. Tape is at $ptr which is $cellValue (${String.fromCharCode(cast cellValue.low)}).');
 	}
 	
+	/**
+	 * Add a standard-form string to the log, in the Low BCL format.
+	 * @param	index		The current index in the string.
+	 * @param	char		The character at that point.
+	 * @param	loopCount	How many loops there are.
+	 * @param	ptr			The pointer to the tape.
+	 * @param	cellValue	The value under that pointer.
+	 */
+	public function addStdFormLbcl(index:Int, char:String, loopCount:Int, ptr:Int, cellValue:Int64)
+	{
+		addStr('At $index ($char) with $loopCount loops. Tape is at $ptr which is $cellValue (${String.fromCharCode(cast cellValue.low)}).');
+	}
+	
 }

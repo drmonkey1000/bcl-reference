@@ -114,6 +114,79 @@ class Bcl
 	}
 	
 	/**
+	 * Interpret Low BCL.
+	 * @param	code	The code to run.
+	 * @return	An error string, if any, or "" if none.
+	 */
+	public function lbcl(code:String):String
+	{
+		var c:String; var i = 0; var a:Dynamic;
+		while (i < code.length)
+		{
+			c = code.charAt(i);
+			log.addStdFormLbcl(i, c, loops.length, ptr, tape[ptr]);
+			
+			switch (c) {
+				case '>':
+					ptr += 1;
+					tapeCheck();
+				case '<':
+					ptr -= 1;
+				case '+':
+					tape[ptr] += 1;
+				case '-':
+					tape[ptr] -= 1;
+				case '.':
+					a = String.fromCharCode(tape[ptr].low);
+					Lib.print(a);
+					log.addStr('Output $a');
+				case ',':
+					a = Sys.stdin().readString(1).charCodeAt(0);
+					tape[ptr] = Int64.ofInt(a);
+					log.addStr('Input ${String.fromCharCode(a)}');
+				case '[':
+					if (tape[ptr] == 0)
+					{
+						try
+						{
+							i = skipNested(code, i, ']', '[');
+							log.addStr('Skipped a loop to $i');
+						}
+						catch (s:String)
+						{
+							return s;
+						}
+					}
+					else
+						loops.push(i);
+				case ']':
+					if (loops.length == 0)
+						return 'No \'[\' for the \']\' at $i';
+					else
+					{
+						if (tape[ptr] != 0)
+						{
+							log.addStr('Skipping backward from a \']\' at $i');
+							i = loops.pop();
+							loops.push(i);
+						}
+						else
+						{
+							log.addStr('Tape is 0, so ending the loop on the \']\'');
+							loops.pop();
+						}
+					}
+				default: // nothing
+			}
+			
+			i++;
+		}
+		
+		return "";
+	}
+
+	
+	/**
 	 * Skips forward until meeting a certain character, accounting for nests.
 	 * @param	inside	The string to use.
 	 * @param	start	The index in inside to start at.
