@@ -41,7 +41,7 @@ class Bcl
 	public function rbf(code:String):String
 	{
 		var c:String; var i = 0; var a:Dynamic;
-		while (i < code.length - 1)
+		while (i < code.length)
 		{
 			c = code.charAt(i);
 			log.addStdFormRbf(i, c, loops.length, ptr, tape[ptr]);
@@ -85,13 +85,18 @@ class Bcl
 					else
 					{
 						if (tape[ptr] != 0)
-							i = loops[loops.length - 1];
+						{
+							log.addStr('Skipping backward from a \']\' at $i');
+							i = loops.pop();
+							loops.push(i);
+						}
 						else
+						{
+							log.addStr('Tape is 0, so ending the loop on the \']\'');
 							loops.pop();
+						}
 					}
-				default:
-					i++;
-					continue;
+				default: // nothing
 			}
 			
 			i++;
