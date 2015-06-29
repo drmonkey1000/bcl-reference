@@ -66,7 +66,7 @@ class Main
 				Lib.println('Copyright (C) 2015 Vi Komprenas <viko@vikomprenas.com>');
 				Lib.println('Licensed under the MIT license. For details, see:');
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
-			case "i-rbf":
+			case "rbf":
 				var bcl = new Bcl("bcl.log");
 				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
 				Sys.stdin().readLine(); // to skip the newline
