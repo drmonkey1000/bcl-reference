@@ -183,8 +183,8 @@ class Bcl
 				case '=':
 					i++;
 					a = code.charAt(i);
-					log.addStr("Hardcoded $a");
-					tape[ptr] = a.charCodeAt(0);
+					log.addStr('Hardcoded $a');
+					tape[ptr] = code.charCodeAt(i);
 				case '#':
 					i = skipNested(code, i, '#', '#');
 				case 'X':
