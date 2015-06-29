@@ -176,6 +176,19 @@ class Bcl
 							loops.pop();
 						}
 					}
+				case '0':
+					ptr = 0;
+				case 'n':
+					tape[ptr] = 0;
+				case '=':
+					i++;
+					a = code.charAt(i);
+					log.addStr("Hardcoded $a");
+					tape[ptr] = a.charCodeAt(0);
+				case '#':
+					i = skipNested(code, i, '#', '#');
+				case 'X':
+					Sys.exit(cast tape[ptr].mod(256));
 				default: // nothing
 			}
 			
