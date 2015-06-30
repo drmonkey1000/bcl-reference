@@ -67,17 +67,17 @@ class Main
 				Lib.println('Licensed under the MIT license. For details, see:');
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
 			case "rbf":
-				var bcl = new Bcl("bcl.log");
+				var bcl = new Bcl("rbf.log");
 				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
 				Sys.stdin().readLine(); // to skip the newline
 				Sys.stderr().writeString(bcl.rbf(code));
 			case "lbcl":
-				var bcl = new Bcl("bcl.log");
+				var bcl = new Bcl("lbcl.log");
 				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
 				Sys.stdin().readLine(); // to skip the newline
 				Sys.stderr().writeString(bcl.lbcl(code));
 			case "hbcl":
-				var bcl = new Bcl("bcl.log");
+				var bcl = new Bcl("hbcl.log");
 				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
 				Sys.stdin().readLine(); // to skip the newline
 				Sys.stderr().writeString(bcl.hbcl(code));
