@@ -76,6 +76,11 @@ class Main
 				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
 				Sys.stdin().readLine(); // to skip the newline
 				Sys.stderr().writeString(bcl.lbcl(code));
+			case "hbcl":
+				var bcl = new Bcl("bcl.log");
+				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
+				Sys.stdin().readLine(); // to skip the newline
+				Sys.stderr().writeString(bcl.hbcl(code));
 			default:
 				Lib.println('Syntax error (bad command). Use command "help" for help or "info" for information.');
 		}
