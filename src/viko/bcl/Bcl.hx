@@ -222,6 +222,7 @@ class Bcl
 		{
 			c = code.charAt(i);
 			log.addStdFormHbcl(i, c, loops.length, ptr, tape[ptr]);
+			lastChangesCaret = -1;
 			
 			switch (c) {
 				case '>':
@@ -341,6 +342,22 @@ class Bcl
 						a++;
 					}
 					lastChangesCaret = a;
+				case '^':
+					i++; a = 0;
+					while (true)
+					{
+						b = code.charAt(i);
+						if (b != '0' && b != '1' && b != '2' && b != '3' && b != '4' && b != '5' && b != '6' && b != '7' && b != '8' && b != '9')
+							break;
+						else
+							a = a * 10 + Std.parseInt(b);
+					}
+					ptr = a;
+					
+					if (a == 0 && lastChangesCaret != -1)
+					{
+						ptr = lastChangesCaret;
+					}
 				default: // nothing
 			}
 			
