@@ -345,7 +345,7 @@ class Bcl
 					}
 					lastChangesCaret = a;
 				case '^':
-					i++; a = 0;
+					i++; a = -1;
 					while (true)
 					{
 						b = code.charAt(i);
@@ -354,11 +354,17 @@ class Bcl
 						else
 							a = a * 10 + Std.parseInt(b);
 					}
-					ptr = a;
 					
-					if (a == 0 && lastChangesCaret != -1)
-					{
+					if (a == -1 && lastChangesCaret != -1)
 						ptr = lastChangesCaret;
+					else
+					{
+						if (a == -1)
+						{
+							a = 0;
+							i--; // This means there were no digits
+						}
+						ptr = a;
 					}
 				default: // nothing
 			}
