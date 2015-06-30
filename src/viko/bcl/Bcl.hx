@@ -213,7 +213,11 @@ class Bcl
 	 */
 	public function hbcl(code:String):String
 	{
-		var c:String; var i = 0; var a:Dynamic;
+		var c:String; // the character being processed
+		var i = 0; // the index in the code
+		var a:Dynamic; // a various value
+		var b:Dynamic; // another various value
+		var lastChangesCaret:Int = -1; // whether or not the last command was one of ' " : ;
 		while (i < code.length)
 		{
 			c = code.charAt(i);
@@ -290,6 +294,53 @@ class Bcl
 					}
 				case 'X':
 					Sys.exit(cast tape[ptr].mod(256));
+				case "'":
+					i++; a = "";
+					while (i < code.length)
+					{
+						if (code.charAt(i) == "'")
+							break;
+						a += code.charAt(i);
+						i++;
+					}
+					b = ptr;
+					for (ch in a)
+					{
+						tapeCheckAlt(b);
+						tape[b] = ch.charCodeAt(0);
+						b++;
+					}
+					lastChangesCaret = b;
+				case '"':
+					i++; a = "";
+					while (i < code.length)
+					{
+						if (code.charAt(i) == '"')
+							break;
+						a += code.charAt(i);
+						i++;
+					}
+					b = ptr;
+					for (ch in a)
+					{
+						tapeCheckAlt(b);
+						tape[b] = ch.charCodeAt(0);
+						b++;
+					}
+					tapeCheckAlt(b + 1);
+					tape[b + 1] = 0;
+					lastChangesCaret = b + 1;
+				case ':':
+					a = ptr;
+					while (true)
+					{
+						tapeCheckAlt(a);
+						if (tape[a] == 0)
+							break;
+						rbf('.');
+						a++;
+					}
+					lastChangesCaret = a;
 				default: // nothing
 			}
 			
@@ -348,6 +399,11 @@ class Bcl
 	}
 	
 	function tapeCheck() 
+	{
+		tapeCheckAlt(ptr);
+	}
+	
+	function tapeCheckAlt(p:Int) 
 	{
 		if (ptr < 0)
 			ptr = 0;
