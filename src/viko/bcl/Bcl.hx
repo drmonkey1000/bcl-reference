@@ -305,7 +305,7 @@ class Bcl
 						i++;
 					}
 					b = ptr;
-					for (ch in a)
+					for (ch in cast (a, String).split(""))
 					{
 						tapeCheckAlt(b);
 						tape[b] = ch.charCodeAt(0);
@@ -322,7 +322,7 @@ class Bcl
 						i++;
 					}
 					b = ptr;
-					for (ch in a)
+					for (ch in cast (a, String).split(""))
 					{
 						tapeCheckAlt(b);
 						tape[b] = ch.charCodeAt(0);
@@ -332,13 +332,15 @@ class Bcl
 					tape[b + 1] = 0;
 					lastChangesCaret = b + 1;
 				case ':':
-					a = ptr;
+					a = ptr; b = ptr;
 					while (true)
 					{
 						tapeCheckAlt(a);
 						if (tape[a] == 0)
 							break;
+						ptr = a;
 						rbf('.');
+						ptr = b;
 						a++;
 					}
 					lastChangesCaret = a;
