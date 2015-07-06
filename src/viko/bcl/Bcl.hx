@@ -218,6 +218,7 @@ class Bcl
 		var a:Dynamic; // a various value
 		var b:Dynamic; // another various value
 		var lastChangesCaret:Int = -1; // whether or not the last command was one of ' " : ;
+		var didIf:Int = 0; // For the '(|)' handling. 0 is don't do anything, 1 is skip forward from '|' to ')', 2 is do the '|' clause.
 		while (i < code.length)
 		{
 			c = code.charAt(i);
@@ -372,6 +373,13 @@ class Bcl
 						}
 						ptr = a;
 					}
+				case '(':
+					didIf = tape[ptr] == tape[ptr + 1] ? 1 : 2;
+					if (didIf == 2)
+						skipNested(code, i, '|', '(');
+				case '|':
+					if (didIf == 1)
+						skipNested(code, i, ')', '(');
 				default: // nothing
 			}
 			
@@ -387,7 +395,7 @@ class Bcl
 	 * @param	inside	The string to use.
 	 * @param	start	The index in inside to start at.
 	 * @param	until	The character to stop skipping at.
-	 * @param	nests	The character that can start a nesting with this character. If "", does not account for nests.
+	 * @param	nests	The character that can start a nesting with this character. If length != 1, does not account for nests.
 	 * @return	The index in inside after the last character of this.
 	 */
 	public function skipNested(inside:String, start:Int, until:String, nests:String):Int
