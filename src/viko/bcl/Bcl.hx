@@ -352,7 +352,13 @@ class Bcl
 						if (b != '0' && b != '1' && b != '2' && b != '3' && b != '4' && b != '5' && b != '6' && b != '7' && b != '8' && b != '9')
 							break;
 						else
+						{
+							if (a == -1)
+							{
+								a = 0;
+							}
 							a = a * 10 + Std.parseInt(b);
+						}
 					}
 					
 					if (a == -1 && lastChangesCaret != -1)
