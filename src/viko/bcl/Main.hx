@@ -14,11 +14,12 @@ class Main
 	static var args:Array<String>;
 	static var params:Map<String, String>;
 	static var flags:Array<String>;
+	static var file:String = "";
 	
 	#if debug
-	static inline var headerString = "BCL-reference 0.1debug - https://www.vikomprenas.com/public/bcl/index.htm";
+	static inline var headerString = "BCL-reference 0.3debug - https://www.vikomprenas.com/public/bcl/index.htm";
 	#else
-	static inline var headerString = "BCL-reference 0.1 - https://www.vikomprenas.com/public/bcl/index.htm";
+	static inline var headerString = "BCL-reference 0.3 - https://www.vikomprenas.com/public/bcl/index.htm";
 	#end
 	
 	static function main() 
