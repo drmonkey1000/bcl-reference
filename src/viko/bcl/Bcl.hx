@@ -374,12 +374,18 @@ class Bcl
 						ptr = a;
 					}
 				case '(':
-					didIf = tape[ptr] == tape[ptr + 1] ? 1 : 2;
+					log.addStr('Doing a ( between ${tape[ptr]} and ${tape[ptr + 1]}');
+					if (tape[ptr] == tape[ptr + 1])
+						didIf = 1;
+					else
+						didIf = 2;
 					if (didIf == 2)
-						skipNested(code, i, '|', '(');
+						i = skipNested(code, i, '|', '(');
 				case '|':
+					log.addStr('Doing a | with didIf $didIf');
 					if (didIf == 1)
-						skipNested(code, i, ')', '(');
+						i = skipNested(code, i, ')', '(');
+					didIf = 0;
 				default: // nothing
 			}
 			
