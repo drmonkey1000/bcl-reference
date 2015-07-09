@@ -13,9 +13,10 @@ using haxe.Int64;
 class Bcl
 {
 	
-	public var tape:Array<Int64>;
-	public var ptr:Int;
-	public var loops:Array<Int>; // A stack showing what loops the code is running right now. Pointers to their [.
+	public var tape:Array<Int64> = [0];
+	public var ptr:Int = 0;
+	public var loops:Array<Int> = []; // A stack showing what loops the code is running right now. Pointers to their [.
+	public var ifs:Array<Int> = []; // A stack showing what ifs are being done right now. 1 = skip to ) on | - 2 = do |.
 	
 	public var log:BclLog;
 	
@@ -34,10 +35,6 @@ class Bcl
 	 */
 	public function init(logfilename:String = ""):Void
 	{
-		tape = new Array<Int64>();
-		tape.push(0);
-		ptr = 0;
-		loops = new Array<Int>();
 		log = new BclLog(logfilename);
 	}
 	
@@ -218,7 +215,6 @@ class Bcl
 		var a:Dynamic; // a various value
 		var b:Dynamic; // another various value
 		var lastChangesCaret:Int = -1; // whether or not the last command was one of ' " : ;
-		var didIf:Int = 0; // For the '(|)' handling. 0 is don't do anything, 1 is skip forward from '|' to ')', 2 is do the '|' clause.
 		while (i < code.length)
 		{
 			c = code.charAt(i);
@@ -376,16 +372,15 @@ class Bcl
 				case '(':
 					log.addStr('Doing a ( between ${tape[ptr]} and ${tape[ptr + 1]}');
 					if (tape[ptr] == tape[ptr + 1])
-						didIf = 1;
+						ifs.push(1);
 					else
-						didIf = 2;
-					if (didIf == 2)
+						ifs.push(2);
+					if (ifs[ifs.length - 1] == 2)
 						i = skipNested(code, i, '|', '(');
 				case '|':
-					log.addStr('Doing a | with didIf $didIf');
-					if (didIf == 1)
+					log.addStr('Doing a | with last ifs ${ifs[ifs.length - 1]}');
+					if (ifs.pop() == 1)
 						i = skipNested(code, i, ')', '(');
-					didIf = 0;
 				default: // nothing
 			}
 			
