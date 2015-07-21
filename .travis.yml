@@ -3,4 +3,4 @@ haxe:
   - "3.2.0"
   - development
 script:
-  - haxe -cpp export -main viko.bcl.Main
+  - haxe -cpp export -cp src/viko/bcl -main viko.bcl.Main
