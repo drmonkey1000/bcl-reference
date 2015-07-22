@@ -16,9 +16,9 @@ class Main
 	static var flags:Array<String>;
 	
 	#if debug
-	static inline var headerString = "BCL-reference 0.3debug - https://www.vikomprenas.com/public/bcl/index.htm";
+	static inline var headerString = "BCL-reference 1.0debug - https://www.vikomprenas.com/public/bcl/index.htm";
 	#else
-	static inline var headerString = "BCL-reference 0.3 - https://www.vikomprenas.com/public/bcl/index.htm";
+	static inline var headerString = "BCL-reference 1.0 - https://www.vikomprenas.com/public/bcl/index.htm";
 	#end
 	
 	static function main() 
@@ -58,24 +58,33 @@ class Main
 				Lib.println('    Prints this help message.');
 				Lib.println('bcl info');
 				Lib.println('    Prints some basic information.');
-				Lib.println('bcl i-rbf');
+				Lib.println('bcl rbf [file] [-l]');
 				Lib.println('    Interprets Restricted Brainf*** from the command line.');
 				Lib.println('    Expects entered code to end with a ~.');
+				Lib.println('    If a file is given, reads that. -l generates a log file \'rbf.log\'.');
+				Lib.println('bcl lbcl [file] [-l]');
+				Lib.println('    Interprets Low BCL from the command line.');
+				Lib.println('    Expects entered code to end with a ~.');
+				Lib.println('    If a file is given, reads that. -l generates a log file \'lbcl.log\'.');
+				Lib.println('bcl hbcl [file] [-l]');
+				Lib.println('    Interprets High BCL from the command line.');
+				Lib.println('    Expects entered code to end with a ~.');
+				Lib.println('    If a file is given, reads that. -l generates a log file \'hbcl.log\'.');
 			case "info":
 				Lib.println(headerString);
 				Lib.println('Copyright (C) 2015 Vi Komprenas <viko@vikomprenas.com>');
 				Lib.println('Licensed under the MIT license. For details, see:');
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
 			case "rbf":
-				var bcl = new Bcl("rbf.log");
+				var bcl = new Bcl(flags.indexOf('-l') != -1 ? "rbf.log" : "");
 				var code:String = makeCode();
 				Sys.stderr().writeString(bcl.rbf(code));
 			case "lbcl":
-				var bcl = new Bcl("lbcl.log");
+				var bcl = new Bcl(flags.indexOf('-l') != -1 ? "lbcl.log" : "");
 				var code:String = makeCode();
 				Sys.stderr().writeString(bcl.lbcl(code));
 			case "hbcl":
-				var bcl = new Bcl("hbcl.log");
+				var bcl = new Bcl(flags.indexOf('-l') != -1 ? "hbcl.log" : "");
 				var code:String = makeCode();
 				Sys.stderr().writeString(bcl.hbcl(code));
 			default:
