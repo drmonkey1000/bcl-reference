@@ -16,9 +16,9 @@ class Main
 	static var flags:Array<String>;
 	
 	#if debug
-	static inline var headerString = "BCL-reference 0.1debug - https://www.vikomprenas.com/public/bcl/index.htm";
+	static inline var headerString = "BCL-reference 0.3debug - https://www.vikomprenas.com/public/bcl/index.htm";
 	#else
-	static inline var headerString = "BCL-reference 0.1 - https://www.vikomprenas.com/public/bcl/index.htm";
+	static inline var headerString = "BCL-reference 0.3 - https://www.vikomprenas.com/public/bcl/index.htm";
 	#end
 	
 	static function main() 
@@ -67,17 +67,37 @@ class Main
 				Lib.println('Licensed under the MIT license. For details, see:');
 				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
 			case "rbf":
-				var bcl = new Bcl("bcl.log");
-				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
-				Sys.stdin().readLine(); // to skip the newline
+				var bcl = new Bcl("rbf.log");
+				var code:String = makeCode();
 				Sys.stderr().writeString(bcl.rbf(code));
 			case "lbcl":
-				var bcl = new Bcl("bcl.log");
-				var code:String = Sys.stdin().readUntil('~'.charCodeAt(0));
-				Sys.stdin().readLine(); // to skip the newline
+				var bcl = new Bcl("lbcl.log");
+				var code:String = makeCode();
 				Sys.stderr().writeString(bcl.lbcl(code));
+			case "hbcl":
+				var bcl = new Bcl("hbcl.log");
+				var code:String = makeCode();
+				Sys.stderr().writeString(bcl.hbcl(code));
 			default:
 				Lib.println('Syntax error (bad command). Use command "help" for help or "info" for information.');
+		}
+	}
+	
+	static function makeCode():String
+	{
+		if (params.exists('_1_'))
+		{
+			var file = File.read(params.get('_1_'), false);
+			var g = file.readAll().toString();
+			if (g.indexOf('~') != -1)
+				g = g.split('~')[0];
+			return g;
+		}
+		else
+		{
+			var g = Sys.stdin().readUntil('~'.charCodeAt(0));
+			Sys.stdin().readLine();
+			return g;
 		}
 	}
 	
