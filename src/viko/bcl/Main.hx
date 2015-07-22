@@ -1,6 +1,5 @@
 package viko.bcl;
 
-import cpp.Lib;
 import sys.io.File;
 import viko.bcl.BclLog;
 
@@ -29,7 +28,7 @@ class Main
 		
 		if (args.length == 0)
 		{
-			Lib.println('Syntax error (no args). Use command "help" for help or "info" for information.');
+			Sys.println('Syntax error (no args). Use command "help" for help or "info" for information.');
 			return;
 		}
 		
@@ -53,28 +52,28 @@ class Main
 		
 		switch (params.get("_0_")) {
 			case "help":
-				Lib.println(headerString);
-				Lib.println('bcl help');
-				Lib.println('    Prints this help message.');
-				Lib.println('bcl info');
-				Lib.println('    Prints some basic information.');
-				Lib.println('bcl rbf [file] [-l]');
-				Lib.println('    Interprets Restricted Brainf*** from the command line.');
-				Lib.println('    Expects entered code to end with a ~.');
-				Lib.println('    If a file is given, reads that. -l generates a log file \'rbf.log\'.');
-				Lib.println('bcl lbcl [file] [-l]');
-				Lib.println('    Interprets Low BCL from the command line.');
-				Lib.println('    Expects entered code to end with a ~.');
-				Lib.println('    If a file is given, reads that. -l generates a log file \'lbcl.log\'.');
-				Lib.println('bcl hbcl [file] [-l]');
-				Lib.println('    Interprets High BCL from the command line.');
-				Lib.println('    Expects entered code to end with a ~.');
-				Lib.println('    If a file is given, reads that. -l generates a log file \'hbcl.log\'.');
+				Sys.println(headerString);
+				Sys.println('bcl help');
+				Sys.println('    Prints this help message.');
+				Sys.println('bcl info');
+				Sys.println('    Prints some basic information.');
+				Sys.println('bcl rbf [file] [-l]');
+				Sys.println('    Interprets Restricted Brainf*** from the command line.');
+				Sys.println('    Expects entered code to end with a ~.');
+				Sys.println('    If a file is given, reads that. -l generates a log file \'rbf.log\'.');
+				Sys.println('bcl lbcl [file] [-l]');
+				Sys.println('    Interprets Low BCL from the command line.');
+				Sys.println('    Expects entered code to end with a ~.');
+				Sys.println('    If a file is given, reads that. -l generates a log file \'lbcl.log\'.');
+				Sys.println('bcl hbcl [file] [-l]');
+				Sys.println('    Interprets High BCL from the command line.');
+				Sys.println('    Expects entered code to end with a ~.');
+				Sys.println('    If a file is given, reads that. -l generates a log file \'hbcl.log\'.');
 			case "info":
-				Lib.println(headerString);
-				Lib.println('Copyright (C) 2015 Vi Komprenas <viko@vikomprenas.com>');
-				Lib.println('Licensed under the MIT license. For details, see:');
-				Lib.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
+				Sys.println(headerString);
+				Sys.println('Copyright (C) 2015 Vi Komprenas <viko@vikomprenas.com>');
+				Sys.println('Licensed under the MIT license. For details, see:');
+				Sys.println('  https://raw.githubusercontent.com/ViKomprenas/bcl-reference/master/LICENSE');
 			case "rbf":
 				var bcl = new Bcl(flags.indexOf('-l') != -1 ? "rbf.log" : "");
 				var code:String = makeCode();
@@ -88,7 +87,7 @@ class Main
 				var code:String = makeCode();
 				Sys.stderr().writeString(bcl.hbcl(code));
 			default:
-				Lib.println('Syntax error (bad command). Use command "help" for help or "info" for information.');
+				Sys.println('Syntax error (bad command). Use command "help" for help or "info" for information.');
 		}
 	}
 	

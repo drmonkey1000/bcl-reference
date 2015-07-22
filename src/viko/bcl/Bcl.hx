@@ -1,6 +1,5 @@
 package viko.bcl;
 
-import cpp.Lib;
 import haxe.Int64;
 import haxe.io.Input;
 
@@ -63,7 +62,7 @@ class Bcl
 					tape[ptr] -= 1;
 				case '.':
 					a = String.fromCharCode(tape[ptr].low);
-					Lib.print(a);
+					Sys.print(a);
 					log.addStr('Output $a');
 				case ',':
 					a = Sys.stdin().readString(1).charCodeAt(0);
@@ -135,7 +134,7 @@ class Bcl
 					tape[ptr] -= 1;
 				case '.':
 					a = String.fromCharCode(tape[ptr].low);
-					Lib.print(a);
+					Sys.print(a);
 					log.addStr('Output $a');
 				case ',':
 					a = Sys.stdin().readString(1).charCodeAt(0);
@@ -233,7 +232,7 @@ class Bcl
 					tape[ptr] -= 1;
 				case '.':
 					a = String.fromCharCode(tape[ptr].low);
-					Lib.print(a);
+					Sys.print(a);
 					log.addStr('Output $a');
 				case ',':
 					a = Sys.stdin().readString(1).charCodeAt(0);
