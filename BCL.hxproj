@@ -42,7 +42,7 @@
   <preBuildCommand>$(ProjectDir)\build\prepare.bat
 $(ProjectDir)\build\build.bat</preBuildCommand>
   <!-- Executed after build -->
-  <postBuildCommand alwaysRun="False">$(ProjectDir)\build\test.bat</postBuildCommand>
+  <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />

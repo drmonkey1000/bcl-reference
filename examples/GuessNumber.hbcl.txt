@@ -1,12 +1,12 @@
-"Guess the number! ": [[-]>]0
+"Guess the number! ": [n>]0
 ,>=3< (
     ,>=6< (
         ,>=
-< (
-		"Correct!":
-	|
-		"Incorrect!":
-	)
+		< (
+			"Correct!":
+		|
+			"Incorrect!":
+		)
     |
         "Incorrect!":
     )

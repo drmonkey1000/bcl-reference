@@ -374,8 +374,6 @@ class Bcl
 					if (tape[ptr] == tape[ptr + 1])
 						ifs.push(1);
 					else
-						ifs.push(2);
-					if (ifs[ifs.length - 1] == 2)
 						i = skipNested(code, i, '|', '(');
 				case '|':
 					log.addStr('Doing a | with last ifs ${ifs[ifs.length - 1]}');
