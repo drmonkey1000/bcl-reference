@@ -1,7 +1,7 @@
 # BCL-reference
 ![master](https://travis-ci.org/ViKomprenas/bcl-reference.svg?branch=master)
 
-This is the reference implementation of the BCL programming language. The implementation is currently incomplete. The specification, version 1.0, is available at http://vikomprenas.com/public/bcl/spec-1_0.md .
+This is the reference implementation of the BCL programming language. The implementation is currently incomplete. The specification, version 1.0, is available at http://www.vikomprenas.com/bcl/spec-1_0.md .
 
 ## Command line syntax
 ```
