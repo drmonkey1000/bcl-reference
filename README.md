@@ -11,6 +11,12 @@ bcl info
 # These read from standard input until ~
 bcl rbf
 bcl lbcl
+bcl hbcl
+
+# These read from a file (if ~, cut off there, else go to EOF)
+bcl rbf somecode.rbf
+bcl lbcl somecode.lbcl
+bcl hbcl somecode.hbcl
 ```
 
 To get a list of supported commands and syntax, use the command `help`.
