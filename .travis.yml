@@ -2,6 +2,7 @@ language: haxe
 haxe:
   - "3.2.0"
 install:
+  - chmod +x build/*.sh
   - build/prepare.sh
 script:
   - build/build.sh
