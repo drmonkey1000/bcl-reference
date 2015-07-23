@@ -2,6 +2,8 @@ language: haxe
 haxe:
   - "3.2.0"
 install:
-  - haxelib install hxcpp
+  - build/prepare.sh
 script:
-  - haxe -cp src -main viko.bcl.Main -cpp export
+  - build/build.sh
+after_success:
+  - build/test.sh
