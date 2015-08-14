@@ -45,3 +45,5 @@ This project requires Haxe 3.2.0 and no other libraries. The project is kept in 
 
 ## Contributing
 At this time, BCL-reference is closed to contributions.
+
+Hello I am steel all credit
